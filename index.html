@@ -424,7 +424,7 @@ async function exportImage(id) {
   const c=canvas.getContext('2d');
   const rr=(x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();c.fill();};
   const wt=(text,x,y,maxW,lh,max)=>{if(!text)return;const chars=[...text];let line='',n=0;for(let i=0;i<chars.length;i++){const t=line+chars[i];if(c.measureText(t).width>maxW&&line){c.fillText(line,x,y+n*lh);line=chars[i];n++;if(n>=max){c.fillText(line+'…',x,y+n*lh);return;}}else{line=t;}}if(line)c.fillText(line,x,y+n*lh);};
-  const loadImg=(src)=>new Promise(res=>{if(!src)return res(null);const img=new Image();img.onload=()=>res(img);img.onerror=()=>res(null);img.src=src;});
+  const loadImg=(src)=>new Promise(res=>{if(!src)return res(null);const img=new Image();img.crossOrigin='anonymous';img.onload=()=>res(img);img.onerror=()=>res(null);img.src=src;});
   c.fillStyle='#0d0d0f';c.fillRect(0,0,W,H);
   c.fillStyle='#15151a';c.fillRect(0,0,W,120);
   c.fillStyle='#e8ff47';c.fillRect(0,0,W,4);
